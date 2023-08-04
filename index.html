@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>To Do List</title>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="main.css" />
+</head>
+<body>
+	<h1><center><emphasis>To Do List</emphasis></center></h1>
+	<div class="container">
+		<div class="addtask">
+			<input type="text" placeholder="What are you upto?">
+			<button>Add</button>
+		</div>
+		<ol class="tasks">
+			<h2>Tasks</h2>
+		</ol>
+		<ol class="completed_tasks">
+			<h2>Completed Tasks</h2>
+			
+		</ol>
+	</div>
+	<div id="bm">Designed by- Spoorti Aldi</div>
+	<script >
+		const input= document.querySelector('input');
+		const btn = document.querySelector('.addtask > button');
+		
+		btn.addEventListener('click', addList);
+		input.addEventListener('keyup', (e)=>{
+			(e.keyCode === 13 ? addList(e) : null);
+		})
+
+		function addList(e){
+			const pending = document.querySelector('.tasks');
+			const completed = document.querySelector('.completed_tasks');
+		
+			const newLi = document.createElement('li');
+			const checkBtn = document.createElement('button');
+			const delBtn = document.createElement('button');
+		
+			checkBtn.innerHTML = '<i class="fa fa-check-circle-o" style="color:#4f1c1c; "></i>';	
+			delBtn.innerHTML = '<i class="fa fa-remove" style="color:#4f1c1c;"></i>';
+		
+			if(input.value !== ''){
+				newLi.textContent = input.value;
+				input.value = '';
+				pending.appendChild(newLi);
+				newLi.appendChild(checkBtn);
+				newLi.appendChild(delBtn);
+			}
+
+			checkBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+				completed.appendChild(parent);
+				checkBtn.style.display = 'none';
+				
+			});
+			delBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+			});
+		}
+		</script>
+</html>
